@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 
 /** Intersection observer hook for scroll-triggered animations */
-export function useInView(threshold = 0.15): [React.RefObject<HTMLElement | null>, boolean] {
-  const ref = useRef<HTMLElement | null>(null);
+export function useInView<T extends HTMLElement = HTMLDivElement>(threshold = 0.15): [React.RefObject<T | null>, boolean] {
+  const ref = useRef<T | null>(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {

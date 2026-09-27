@@ -41,7 +41,7 @@ const tracksData = [
 
 export default function Tracks() {
   const { theme, soundEnabled } = useTheme();
-  const [ref, inView] = useInView({ threshold: 0.1 });
+  const [ref, inView] = useInView<HTMLDivElement>(0.1);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const handleHover = (index: number) => {

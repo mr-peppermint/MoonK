@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTheme } from '../context/ThemeContext';
 import { useInView } from '../hooks/useAnimations';
 import { playHudClick } from '../audio/soundEffects';
-import { Clock, Coffee, Code, Mic, CheckCircle, Users, Zap } from 'lucide-react';
+import { Clock, Coffee, Code, Mic, CheckCircle, Users } from 'lucide-react';
 
 type EventType = 'ceremony' | 'hack' | 'break' | 'mentor' | 'checkpoint';
 
@@ -52,7 +52,7 @@ const getIcon = (type: EventType) => {
   }
 };
 
-const getColorClass = (type: EventType, themeColor: string) => {
+const getColorClass = (type: EventType) => {
   switch (type) {
     case 'ceremony':
       return 'text-blue-400 border-blue-400/30 bg-blue-400/10';
@@ -70,8 +70,7 @@ const getColorClass = (type: EventType, themeColor: string) => {
 };
 
 const TimelineItem = ({ event, index }: { event: TimelineEvent; index: number }) => {
-  const { theme, soundEnabled } = useTheme();
-  const { ref, isVisible } = useInView({ threshold: 0.2 });
+  const [ref, isVisible] = useInView<HTMLDivElement>(0.2);
 
   return (
     <div
@@ -103,7 +102,7 @@ const TimelineItem = ({ event, index }: { event: TimelineEvent; index: number })
       <div className="flex-1 pl-6 md:pl-12 pb-2">
         <div className={`glass-panel p-6 rounded-xl border border-[#1a1a2e] hover:border-[var(--glow-color)] transition-all duration-300 group-hover:bg-[#1a1a2e]/40 transform group-hover:-translate-y-1`}>
           <div className="flex items-center gap-3 mb-2">
-            <div className={`p-2 rounded-lg ${getColorClass(event.type, theme.color)}`}>
+            <div className={`p-2 rounded-lg ${getColorClass(event.type)}`}>
               {getIcon(event.type)}
             </div>
             <h3 className="text-xl font-bold text-[#e0e0e8]">{event.title}</h3>
@@ -118,7 +117,7 @@ const TimelineItem = ({ event, index }: { event: TimelineEvent; index: number })
 export default function SacredTimeline() {
   const { theme, soundEnabled } = useTheme();
   const [activeDay, setActiveDay] = useState<1 | 2>(1);
-  const { ref, isVisible } = useInView();
+  const [ref, isVisible] = useInView<HTMLDivElement>();
 
   const handleTabClick = (day: 1 | 2) => {
     if (soundEnabled) playHudClick();
