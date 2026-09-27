@@ -1,0 +1,141 @@
+@import "tailwindcss";
+
+@theme {
+  --color-marvel-dark: #0a0a0f;
+  --color-marvel-darker: #050508;
+  --color-marvel-card: #0d0d18;
+  --color-marvel-border: #1a1a2e;
+  --color-marvel-text: #e0e0e8;
+  --color-marvel-muted: #8888a0;
+  --color-gfg-green: #2f8d46;
+  --color-gfg-light: #5cb85c;
+
+  --color-stone-space: #00b4d8;
+  --color-stone-time: #2f8d46;
+  --color-stone-reality: #e63946;
+  --color-stone-power: #9b5de5;
+  --color-stone-mind: #f4a261;
+  --color-stone-soul: #e76f51;
+
+  --font-family-heading: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-marvel-border) var(--color-marvel-darker);
+  }
+
+  body {
+    font-family: var(--font-family-heading);
+    background: var(--color-marvel-darker);
+    color: var(--color-marvel-text);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-marvel-darker);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-marvel-border);
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background: var(--color-stone-space);
+    color: white;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px var(--glow-color, var(--color-stone-space)),
+                 0 0 40px color-mix(in srgb, var(--glow-color, var(--color-stone-space)) 50%, transparent),
+                 0 0 80px color-mix(in srgb, var(--glow-color, var(--color-stone-space)) 25%, transparent);
+  }
+
+  .box-glow {
+    box-shadow: 0 0 15px color-mix(in srgb, var(--glow-color, var(--color-stone-space)) 40%, transparent),
+                0 0 30px color-mix(in srgb, var(--glow-color, var(--color-stone-space)) 20%, transparent),
+                inset 0 0 15px color-mix(in srgb, var(--glow-color, var(--color-stone-space)) 10%, transparent);
+  }
+
+  .border-glow {
+    border-color: color-mix(in srgb, var(--glow-color, var(--color-stone-space)) 60%, transparent);
+    box-shadow: 0 0 10px color-mix(in srgb, var(--glow-color, var(--color-stone-space)) 30%, transparent);
+  }
+
+  .hud-grid {
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--glow-color, var(--color-stone-space)) 5%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--glow-color, var(--color-stone-space)) 5%, transparent) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  .glass-panel {
+    background: linear-gradient(135deg,
+      color-mix(in srgb, var(--color-marvel-card) 80%, transparent),
+      color-mix(in srgb, var(--color-marvel-dark) 90%, transparent));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}
+
+@layer base {
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  @keyframes scan-line {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  @keyframes blink {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: var(--glow-color, var(--color-stone-space)); }
+  }
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+}
